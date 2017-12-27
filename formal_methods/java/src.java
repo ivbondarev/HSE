@@ -79,6 +79,7 @@ class key_door {
 
 	public static void main(String[] args) {
 		key_door kd = new key_door();
+		// Prepare initial state
 		// Closed
 		kd.state = 1;
 		// Locked
@@ -86,11 +87,28 @@ class key_door {
 		// No alarm
 		kd.alarm = 0;
 
-		kd.insert_key();
-		kd.open();
-		kd.take_key();
-		kd.close();
-		kd.close();
+		if (args.length > 1) {
+			for (int i = 0; i < args.length; i++) {
+				switch (Integer.parseInt(args[i])) {
+					case 0:
+						kd.insert_key();
+						break;
+					case 1:
+						kd.take_key();
+						break;
+					case 2:
+						kd.open();
+						break;
+					case 3:
+						kd.close();
+						break;
+					default:
+						System.exit(1);
+
+				}
+			}
+
+		}
 
 		System.out.println("State: " + kd.state
 				   + " Lock: " + kd.lock
