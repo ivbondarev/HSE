@@ -28,11 +28,13 @@ public class ssl_cert
 				+ cert.getSerialNumber()
 				+ " expired: "
 				+ cert.getNotAfter());
+			System.exit(1);
 		} catch (CertificateNotYetValidException e) {
 			System.out.println("Certificate"
 				+ cert.getSerialNumber()
 				+ " can't be used before "
 				+ cert.getNotBefore());
+			System.exit(1);
 		}
 	}
 
@@ -44,6 +46,7 @@ public class ssl_cert
 			System.out.println("Certificate "
 				+ cert.getSerialNumber()
 				+ " is self-signed");
+			System.exit(1);
 		} catch (SignatureException sigEx) {
 			//
 		} catch (InvalidKeyException keyEx) {
@@ -75,11 +78,12 @@ public class ssl_cert
 		Certificate[] certs = conn.getServerCertificates();
 
 		for (Certificate cert : certs) {
-			System.out.println("***************");
 			X509Certificate x509_cert = (X509Certificate)cert;
 
 			check_date(x509_cert);
 			check_self_signed(x509_cert);
+
+			System.out.println("OK");
 		}
 	}
 
